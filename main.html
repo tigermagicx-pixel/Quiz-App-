@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychologie Quiz & Lern-App</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="app">
+        <div class="container">
+            <header class="header">
+                <h1>📚 Psychologie Theorien</h1>
+                <p class="subtitle">Quiz & Lernplattform</p>
+            </header>
+
+            <nav class="main-nav">
+                <button class="nav-btn active" data-view="home">📚 Theorien</button>
+                <button class="nav-btn" data-view="quiz">❓ Quiz-Modus</button>
+                <button class="nav-btn" data-view="stats">📊 Statistik</button>
+            </nav>
+
+            <section id="home" class="view active">
+                <div class="home-content">
+                    <h2>🎓 Alle Psychologie-Theorien</h2>
+                    <p style="margin-bottom: 30px; color: #666;">Klick auf eine Theorie, um sie auszuklappen und vollständig zu lesen. Direkt danach kannst du ein Quiz starten!</p>
+                    <div id="theory-cards-container" class="theory-cards-container"></div>
+                </div>
+            </section>
+
+            <section id="quiz" class="view">
+                <div class="quiz-content">
+                    <h2>❓ Quiz-Modus</h2>
+                    
+                    <div id="quiz-start" class="quiz-start">
+                        <div class="quiz-selector">
+                            <label for="quiz-theory-select">Theorie auswählen:</label>
+                            <select id="quiz-theory-select" onchange="updateQuizPreview()">
+                                <option value="">-- Bitte wählen --</option>
+                            </select>
+                        </div>
+                        <div id="quiz-preview" class="quiz-preview hidden">
+                            <p>Fragen: <strong id="question-count">0</strong></p>
+                        </div>
+                        <button class="btn btn-primary" onclick="startQuiz()" id="start-quiz-btn" disabled>
+                            → Quiz starten
+                        </button>
+                    </div>
+
+                    <div id="quiz-container" class="quiz-container hidden">
+                        <div class="quiz-header">
+                            <div class="progress-bar">
+                                <div id="progress-fill" class="progress-fill"></div>
+                            </div>
+                            <p class="progress-text"><span id="current-question">1</span>/<span id="total-questions">0</span></p>
+                        </div>
+
+                        <div class="question-box">
+                            <h3 id="question-text"></h3>
+                            <div id="answers-container" class="answers-container"></div>
+                        </div>
+
+                        <div class="quiz-controls">
+                            <button class="btn btn-secondary" onclick="previousQuestion()" id="prev-btn" disabled>← Zurück</button>
+                            <button class="btn btn-primary" onclick="nextQuestion()" id="next-btn">Weiter →</button>
+                        </div>
+                    </div>
+
+                    <div id="quiz-results" class="quiz-results hidden">
+                        <h3>Quiz abgeschlossen! 🎉</h3>
+                        <div class="results-stats">
+                            <div class="stat">
+                                <p class="stat-label">Erreichte Punkte</p>
+                                <p class="stat-value"><span id="final-score">0</span>%</p>
+                            </div>
+                            <div class="stat">
+                                <p class="stat-label">Korrekte Antworten</p>
+                                <p class="stat-value"><span id="correct-answers">0</span>/<span id="total-answers">0</span></p>
+                            </div>
+                        </div>
+                        <div id="results-review" class="results-review"></div>
+                        <button class="btn btn-primary" onclick="resetQuiz()">↻ Neues Quiz</button>
+                    </div>
+                </div>
+            </section>
+
+            <section id="stats" class="view">
+                <div class="stats-content">
+                    <h2>📊 Deine Statistik</h2>
+                    
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <h3>Gesamt Punkte</h3>
+                            <p class="big-number" id="total-points">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Quizze absolviert</h3>
+                            <p class="big-number" id="quizzes-completed">0</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Durchschnitt</h3>
+                            <p class="big-number" id="average-score">0%</p>
+                        </div>
+                        <div class="stat-card">
+                            <h3>Best Score</h3>
+                            <p class="big-number" id="best-score">0%</p>
+                        </div>
+                    </div>
+
+                    <div class="stats-details">
+                        <h3>Leistung pro Theorie</h3>
+                        <div id="theory-stats" class="theory-stats"></div>
+                    </div>
+
+                    <button class="btn btn-secondary" onclick="resetStats()">🗑️ Statistik zurücksetzen</button>
+                </div>
+            </section>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
